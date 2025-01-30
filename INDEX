@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOAIB ALI BUKHARI SALARY Tax Calculator 2025 (TY-FBR-2025)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            user-select: none;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .contact-info, .expiration {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .expiration {
+            color: red;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        #countdown {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            animation: blink 1s infinite;
+        }
+
+        /* Disable right-click, text selection, and copying */
+        body, html {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        img {
+            pointer-events: none;
+        }
+    </style>
+    <script>
+        document.addEventListener("contextmenu", event => event.preventDefault());
+        document.addEventListener("keydown", function(event) {
+            if (event.ctrlKey && (event.key === "u" || event.key === "s" || event.key === "c" || event.key === "x" || event.key === "v" || event.key === "p")) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container" id="calculator-container">
+        <h2>FBR Tax Calculator 2025</h2>
+        <input type="number" id="salary" placeholder="Enter Monthly Salary">
+        <button onclick="calculateTax()">Calculate Tax</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="contact-info">
+        <p>App Developed By: Syed Shoaib Ali Shah Bukhari</p>
+        <p>Contact: +92-333-1253313</p>
+    </div>
+
+    <div class="expiration">
+        <p>Expiration Date: <span id="expiration-date"></span></p>
+        <p>Time Left: <span id="countdown"></span></p>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const monthlySalary = parseFloat(document.getElementById('salary').value);
+            if (isNaN(monthlySalary) || monthlySalary < 0) {
+                alert("Please enter a valid salary.");
+                return;
+            }
+
+            const annualSalary = monthlySalary * 12;
+            let tax = 0;
+
+            if (annualSalary > 600000) {
+                if (annualSalary <= 1200000) tax = (annualSalary - 600000) * 0.05;
+                else if (annualSalary <= 2200000) tax = 30000 + (annualSalary - 1200000) * 0.15;
+                else if (annualSalary <= 3200000) tax = 180000 + (annualSalary - 2200000) * 0.25;
+                else if (annualSalary <= 4100000) tax = 430000 + (annualSalary - 3200000) * 0.30;
+                else tax = 700000 + (annualSalary - 4100000) * 0.35;
+            }
+
+            const monthlyTax = tax / 12;
+
+            document.getElementById('result').innerHTML = `
+                <p><strong>Monthly Salary:</strong> ${monthlySalary.toFixed(2)}</p>
+                <p><strong>Annual Salary:</strong> ${annualSalary.toFixed(2)}</p>
+                <p><strong>Annual Tax:</strong> ${tax.toFixed(2)}</p>
+                <p><strong>Monthly Tax Liability:</strong> ${monthlyTax.toFixed(2)}</p>
+            `;
+        }
+
+        const expirationDate = new Date("2025-01-31T00:00:00");
+        document.getElementById('expiration-date').textContent = expirationDate.toLocaleDateString();
+        
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = expirationDate - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById('calculator-container').innerHTML = `<h2 style="color:red;">Software Expired</h2>
+                    <p>This version has expired. Please contact Syed Shoaib Ali Shah Bukhari for an updated version.</p>`;
+                clearInterval(countdownInterval);
+            } else {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById('countdown').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+        
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
